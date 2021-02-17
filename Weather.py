@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import Flask, render_template
 import json
 import requests
-from waitress import serve
+#from waitress import serve
 
 API_KEY = 'fb95c40c2dc15842dd9248fc6090be5f'
 ZIP_CODE = '50263'
@@ -53,4 +53,7 @@ def index():
     return render_template('index.html',temp=curr['main']['temp'],feels_like=curr['main']['feels_like'],wind_speed=curr['wind']['speed'],weather=weather,len=len(weather))
 
 #app.run(debug=True,host='192.168.0.7',port=80)
-serve(app,host='0.0.0.0',port=80, threads=1)
+#serve(app,host='0.0.0.0',port=80, threads=1)
+
+if __name__ == '__main__':
+    app.run(threaded=True,port=80)
