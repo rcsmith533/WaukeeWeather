@@ -43,7 +43,7 @@ def useOnline(zip_code):
 #weather,curr = useLocalFiles()
 
 #Use online files
-weather, curr = useOnline()
+#weather, curr = useOnline()
 
 app = Flask(__name__)
 
