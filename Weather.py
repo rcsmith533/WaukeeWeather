@@ -31,10 +31,10 @@ def useLocalFiles():
         fixDT(weather)
     return weather,j
 
-def useOnline():
-    r = requests.get(CURRENT_URL)
+def useOnline(zip_code):
+    r = requests.get(f'http://api.openweathermap.org/data/2.5/weather?zip={zip_code}&appid={API_KEY}&units=imperial')
     curr = r.json()
-    r = requests.get(FORECAST_URL)
+    r = requests.get(f'http://api.openweathermap.org/data/2.5/forecast?zip={zip_code},US&appid={API_KEY}&units=imperial')
     weather = r.json()['list']
     fixDT(weather)
     return weather, curr
@@ -49,8 +49,18 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    weather, curr = useOnline()
+    weather, curr = useOnline('50263')
     return render_template('index.html',temp=curr['main']['temp'],feels_like=curr['main']['feels_like'],wind_speed=curr['wind']['speed'],weather=weather,len=len(weather))
+
+@app.route('/clinton')
+def clinton():
+    weather, curr = useOnline('61727')
+    return render_template('clinton.html',temp=curr['main']['temp'],feels_like=curr['main']['feels_like'],wind_speed=curr['wind']['speed'],weather=weather,len=len(weather))
+
+@app.route('/wm')
+def westminster():
+    weather,curr = useOnline('80234')
+    return render_template('wm.html',temp=curr['main']['temp'],feels_like=curr['main']['feels_like'],wind_speed=curr['wind']['speed'],weather=weather,len=len(weather))
 
 #app.run(debug=True,host='192.168.0.7',port=80)
 #serve(app,host='0.0.0.0',port=80, threads=1)

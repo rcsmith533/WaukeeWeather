@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>Westminster Weather</title>
+</head>
+    <body>
+        <h1>Westminster Weather</h1>
+        <h2>Current Temperature: {{temp}}</h2>
+        <h2>Feels Like: {{feels_like}}</h2>
+        <h2 style="padding-bottom:50px">Current Wind Speed: {{wind_speed}}</h2>
+        <table class='table table-striped text-center'>
+            <tr>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Temp</th>
+                <th>Feels Like</th>
+                <th>Min Temp</th>
+                <th>Max Temp</th>
+                <th>Wind Speed</th>
+                
+            </tr>
+            {%for i in range(0,len)%}
+                <tr>
+                    <td>{{weather[i]['dt_txt']['day']}}</td>
+                    <td>{{weather[i]['dt_txt']['time']}}</td>
+                    <td>{{weather[i]['main']['temp']}}</td>
+                    <td>{{weather[i]['main']['feels_like']}}</td>
+                    <td>{{weather[i]['main']['temp_min']}}</td>
+                    <td>{{weather[i]['main']['temp_max']}}</td>
+                    <td>{{weather[i]['wind']['speed']}}</td>
+                </tr>
+            {%endfor%}
+        </table>
+    </body>
+</html>
