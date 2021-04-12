@@ -9,6 +9,42 @@ ZIP_CODE = '50263'
 CURRENT_URL = f'http://api.openweathermap.org/data/2.5/weather?zip={ZIP_CODE}&appid={API_KEY}&units=imperial'
 FORECAST_URL = f'http://api.openweathermap.org/data/2.5/forecast?zip={ZIP_CODE},US&appid={API_KEY}&units=imperial'
 
+def windDirection(degree):
+    if degree <= 11.25:
+        return 'N'
+    elif 11.25 < degree < 33.75:
+        return 'N/NE'
+    elif 33.75 <= degree <= 56.25:
+        return 'NE'
+    elif 56.25 < degree < 78.75:
+        return 'E/NE'
+    elif 78.75 <= degree <= 101.25:
+        return 'E'
+    elif 101.25 < degree < 123.75:
+        return 'E/SE'
+    elif 123.75 <= degree <= 146.25:
+        return 'SE'
+    elif 146.25 < degree < 168.75:
+        return 'S/SE'
+    elif 168.75 <= degree <= 191.25:
+        return 'S' 
+    elif 191.25 < degree < 213.75:
+        return 'S/SW'
+    elif 213.75 <= degree <= 236.25:
+        return 'SW'
+    elif 236.25 < degree < 258.75:
+        return 'W/SW'
+    elif 258.75 <= degree <= 281.25:
+        return 'W'
+    elif 281.25 < degree < 303.75:
+        return 'W/NW'
+    elif 303.75 <= degree <= 326.25:
+        return 'NW'
+    elif 326.25 < degree < 348.75:
+        return 'N/NW'
+    elif 348.75 <= degree:
+        return 'N'
+
 def fixDT(myList):
     for i in myList:
         timeString = i['dt_txt']
@@ -50,7 +86,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     weather, curr = useOnline('50263')
-    return render_template('index.html',temp=curr['main']['temp'],feels_like=curr['main']['feels_like'],wind_speed=curr['wind']['speed'],weather=weather,len=len(weather))
+    return render_template('index.html',temp=curr['main']['temp'],feels_like=curr['main']['feels_like'],wind_speed=curr['wind']['speed'],weather=weather,len=len(weather),gust=curr['wind']['gust'],direction=windDirection(curr['wind']['deg']))
 
 @app.route('/clinton')
 def clinton():
