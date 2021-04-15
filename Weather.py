@@ -88,11 +88,9 @@ def index():
     weather, curr = useOnline('50263')
     try:
         gust=curr['wind']['gust']
-        direction=windDirection(curr['wind']['deg'])
     except:
-        gust='None'
-        direction='None'
-    return render_template('index.html',temp=curr['main']['temp'],feels_like=curr['main']['feels_like'],wind_speed=curr['wind']['speed'],weather=weather,len=len(weather),gust=gust,direction=direction)
+        gust='No Data'
+    return render_template('index.html',temp=curr['main']['temp'],feels_like=curr['main']['feels_like'],wind_speed=curr['wind']['speed'],weather=weather,len=len(weather),gust=gust,direction=windDirection(curr['wind']['deg']))
 
 @app.route('/clinton')
 def clinton():
