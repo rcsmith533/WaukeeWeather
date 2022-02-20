@@ -85,7 +85,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    weather, curr = useOnline(string(ZIP_CODE))
+    weather, curr = useOnline(ZIP_CODE)
     try:
         gust=curr['wind']['gust']
     except:
