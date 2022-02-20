@@ -5,7 +5,7 @@ import requests
 #from waitress import serve
 
 API_KEY = 'fb95c40c2dc15842dd9248fc6090be5f'
-ZIP_CODE = '50263'
+ZIP_CODE = '80233'
 CURRENT_URL = f'http://api.openweathermap.org/data/2.5/weather?zip={ZIP_CODE}&appid={API_KEY}&units=imperial'
 FORECAST_URL = f'http://api.openweathermap.org/data/2.5/forecast?zip={ZIP_CODE},US&appid={API_KEY}&units=imperial'
 
@@ -85,7 +85,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    weather, curr = useOnline('50263')
+    weather, curr = useOnline(string(ZIP_CODE))
     try:
         gust=curr['wind']['gust']
     except:
